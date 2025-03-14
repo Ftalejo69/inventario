@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Proveedores</title>
+  <link rel="stylesheet" href="proveedores.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <h1><i class="fas fa-truck"></i> Nuestros Proveedores</h1>
+  </header>
+
+  <div class="formulario">
+    <h2>Agregar Nuevo Proveedor</h2>
+    <input type="text" id="nombre" placeholder="Nombre del proveedor">
+    <input type="email" id="contacto" placeholder="Correo de contacto">
+    <input type="tel" id="telefono" placeholder="Teléfono">
+    <button onclick="agregarProveedor()">Agregar</button>
+  </div>
+
+  <div class="contenedor-tarjetas" id="contenedorProveedores"></div>
+
+  <script src="provedor.js"></script>
+</body>
+</html>

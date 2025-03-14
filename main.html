@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal - Supermercado</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    
+  
+<header>
+  <div class="logo">
+      <h1>Supermercado Online</h1>
+  </div>
+  <nav>
+      <ul>
+          <li class="submenu">
+              <a href="#">Productos</a>
+              <ul class="submenu-items">
+                  <li><a href="#" onclick="abrirModal('modal-crear-producto')">Crear Producto</a></li>
+                  <li><a href="#" onclick="abrirModal('modal-editar-producto')">Editar/Eliminar Producto</a></li>
+              </ul>
+          </li>
+          <li class="submenu">
+              <a href="proveedores.html">Proveedor</a>
+              <ul class="submenu-items">
+                  <li><a href="#" onclick="abrirModal('modal-crear-proveedor')">Crear Proveedor</a></li>
+                  <li><a href="#" onclick="abrirModal('modal-editar-proveedor')">Editar/Eliminar Proveedor</a></li>
+              </ul>
+          </li>
+          <li class="submenu">
+              <a href="categorias.php">Categoría</a>
+              <ul class="submenu-items">
+                  <li><a href="#" onclick="abrirModal('modal-crear-categoria')">Crear Categoría</a></li>
+                  <li><a href="#" onclick="abrirModal('modal-editar-categoria')">Editar/Eliminar Categoría</a></li>
+              </ul>
+          </li>
+          <li><a href="#" id="ver-perfil">Ver Perfil</a></li>
+      </ul>
+      <div id="carrito" onclick="mostrarCarrito()">
+          <span id="carrito-count">0</span> Productos en el carrito
+      </div>
+  </nav>
+</header>
+
+  
+   
+    <section class="productos">
+        <h2>Productos Destacados</h2>
+        <div class="tarjetas">
+            
+            <div class="tarjeta" data-id="1">
+                <img src="imagenes/modelo 1.jpg" alt="Producto 1">
+                <h3>Producto 1</h3>
+                <p>Descripción del producto 1.</p>
+                <button class="comprar" onclick="agregarAlCarrito(1)">Comprar</button>
+            </div>
+            <div class="tarjeta" data-id="2">
+                <img src="imagenes/producto 2.jpg" alt="Producto 2">
+                <h3>Producto 2</h3>
+                <p>Descripción del producto 2.</p>
+                <button class="comprar" onclick="agregarAlCarrito(2)">Comprar</button>
+            </div>
+            <div class="tarjeta" data-id="3">
+                <img src="imagenes/producto 3.jpg" alt="Producto 3">
+                <h3>Producto 3</h3>
+                <p>Descripción del producto 3.</p>
+                <button class="comprar" onclick="agregarAlCarrito(3)">Comprar</button>
+            </div>
+            <div class="tarjeta" data-id="4">
+                <img src="imagenes/producto 4.jpg.jpg" alt="Producto 4">
+                <h3>Producto 4</h3>
+                <p>Descripción del producto 4.</p>
+                <button class="comprar" onclick="agregarAlCarrito(4)">Comprar</button>
+            </div>
+            <div class="tarjeta" data-id="5">
+                <img src="imagenes/producto 5.jpg" alt="Producto 5">
+                <h3>Producto 5</h3>
+                <p>Descripción del producto 5.</p>
+                <button class="comprar" onclick="agregarAlCarrito(5)">Comprar</button>
+            </div>
+            <div class="tarjeta" data-id="6">
+                <img src="imagenes/producto 6.jpg" alt="Producto 6">
+                <h3>Producto 6</h3>
+                <p>Descripción del producto 6.</p>
+                <button class="comprar" onclick="agregarAlCarrito(6)">Comprar</button>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="mision-vision">
+        <div class="tarjeta">
+            <h3>Misión</h3>
+            <p>Brindar una experiencia única de compra, ofreciendo productos de alta calidad y precios competitivos.</p>
+        </div>
+        <div class="tarjeta">
+            <h3>Visión</h3>
+            <p>Ser el supermercado online preferido, reconocido por su calidad y servicio al cliente excepcional.</p>
+        </div>
+    </section>    
+    <div id="carrito-modal" class="modal">
+        <div class="modal-contenido">
+            <h2>Carrito de Compras</h2>
+            <ul id="productos-carrito">
+                
+            </ul>
+            <button id="vaciar-carrito" onclick="vaciarCarrito()">Vaciar Carrito</button>
+            <button id="cerrar-carrito" onclick="cerrarCarrito()">Cerrar</button>
+        </div>
+    </div>
+
+<div id="modal-crear-producto" class="modal">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Crear Producto</h2>
+      <form id="form-crear-producto">
+          <input type="hidden" name="tipo" value="producto">
+          <label>Nombre: <input type="text" name="nombre" required></label>
+          <label>Precio: <input type="number" name="precio" required></label>
+          <label>Descripción: <textarea name="descripcion" required></textarea></label>
+          <button type="submit">Guardar</button>
+      </form>
+  </div>
+</div>
+
+
+<div id="modal-crear-proveedor" class="modal">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Crear Proveedor</h2>
+      <form id="form-crear-proveedor">
+          <input type="hidden" name="tipo" value="proveedor">
+          <label>Nombre: <input type="text" name="nombre" required></label>
+          <label>Contacto: <input type="text" name="contacto" required></label>
+          <label>Teléfono: <input type="text" name="telefono" required></label>
+          <button type="submit">Guardar</button>
+      </form>
+  </div>
+</div>
+
+
+<div id="modal-crear-categoria" class="modal">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Crear Categoría</h2>
+      <form id="form-crear-categoria">
+          <input type="hidden" name="tipo" value="categoria">
+          <label>Nombre: <input type="text" name="nombre" required></label>
+          <button type="submit">Guardar</button>
+      </form>
+  </div>
+</div>
+    <footer>
+        <p>&copy; 2025 Supermercado Online. Todos los derechos reservados.</p>
+    </footer>
+    <div id="perfil" class="modal">
+        <div class="modal-contenido">
+            <span class="close" onclick="cerrarPerfil()">&times;</span>
+            <h2>Mi Perfil</h2>
+            <p>Cargando información...</p>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label"> Imagen de producto</label>
+        <input type="file" class="form-control" id="imagenproducto" name="imagenproducto">
+        
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

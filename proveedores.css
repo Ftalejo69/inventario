@@ -1,0 +1,139 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #007bff;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.contenedor-tarjetas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 30px;
+  gap: 25px;
+}
+
+.tarjeta {
+  background-color: white;
+  border-radius: 12px;
+  width: 300px;
+  padding: 20px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+}
+
+.tarjeta h3 {
+  margin-top: 0;
+  color: #343a40;
+}
+
+.tarjeta p {
+  color: #6c757d;
+  margin: 8px 0;
+  font-size: 0.95rem;
+}
+
+i {
+  margin-right: 8px;
+  color: #007bff;
+}
+
+/* Estilos del formulario */
+.formulario {
+  background: white;
+  padding: 20px;
+  margin: 20px auto;
+  width: 350px;  /* Reduce el ancho para que no sea tan grande */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.formulario h2 {
+  margin-bottom: 15px;
+  color: #007bff;
+  font-size: 1.5rem;
+}
+
+.formulario input {
+  width: 90%;  /* Reduce el ancho para que no llegue hasta los bordes */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.formulario button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 95%;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.formulario button:hover {
+  background: #0056b3;
+}
+
+/* Botones de editar y eliminar */
+.botones {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+
+}
+
+.boton {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  width: 100px;
+  text-align: center;
+}
+
+.boton-editar {
+  background: #ffc107;
+  color: #343a40;
+}
+
+.boton-editar:hover {
+  background: #e0a800;
+  transform: translateY(-2px);
+}
+
+.boton-eliminar {
+  background: #dc3545;
+  color: white;
+}
+
+.boton-eliminar:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+}
