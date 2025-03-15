@@ -1,87 +1,88 @@
 <?php
-$host = "localhost";
-$user = "root";  // Cambia si es necesario
-$pass = "";
-$dbname = "supermercado";  // Asegúrate de que la base de datos existe
+include "conexion.php"; 
 
-$conn = new mysqli($host, $user, $pass, $dbname);
-if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
+$metodo = $_SERVER["REQUEST_METHOD"];
+file_put_contents("debug.txt", print_r($_POST, true));
+
+
+if ($metodo == "POST") { // Crear nueva categoría o Editar
+    $id = isset($_POST["id"]) ? $_POST["id"] : null;
+    $nombre = $_POST["nombre"];
+    $descripcion = $_POST["descripcion"];
+    $correo = $_POST["correo"];
+    $tipo = $_POST["tipo"];
+
+    // Procesar imagen si se subió
+    $imagenRuta = "";
+    if (!empty($_FILES["imagen"]["name"])) {
+        $directorio = "uploads/";
+        if (!is_dir($directorio)) {
+            mkdir($directorio, 0777, true);
+        }
+
+        $imagenNombre = time() . "_" . basename($_FILES["imagen"]["name"]);
+        $imagenRuta = $directorio . $imagenNombre;
+        
+        if (!move_uploaded_file($_FILES["imagen"]["tmp_name"], $imagenRuta)) {
+            $imagenRuta = ""; // Si falla la subida, dejar vacío
+        }
+    }
+
+    if ($id) {
+        // Actualizar categoría existente
+        $sql = "UPDATE categorias SET nombre='$nombre', descripcion='$descripcion', correo='$correo', tipo='$tipo'";
+        if ($imagenRuta !== "") {
+            $sql .= ", imagen='$imagenRuta'";
+        }
+        $sql .= " WHERE id=$id";
+    } else {
+        // Insertar nueva categoría
+        $sql = "INSERT INTO categorias (nombre, descripcion, correo, tipo, imagen) 
+                VALUES ('$nombre', '$descripcion', '$correo', '$tipo', '$imagenRuta')";
+    }
+
+    if ($conexion->query($sql) === TRUE) {
+        echo json_encode(["mensaje" => $id ? "Categoría actualizada" : "Categoría agregada con éxito"]);
+    } else {
+        echo json_encode(["error" => $conexion->error]);
+    }
 }
 
-// Leer datos de la base de datos
-if ($_SERVER["REQUEST_METHOD"] === "GET") {
+// Obtener todas las categorías (GET)
+if ($metodo == "GET") {
     $sql = "SELECT * FROM categorias";
-    $result = $conn->query($sql);
-    
+    $result = $conexion->query($sql);
+
     $categorias = [];
-    while ($row = $result->fetch_assoc()) {
-        $categorias[] = $row;
+    while ($fila = $result->fetch_assoc()) {
+        $categorias[] = $fila;
     }
-    
+
     echo json_encode($categorias);
-    exit();
 }
 
-// Insertar una nueva categoría
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+// Eliminar categoría (DELETE)
+if ($metodo == "DELETE") {
     $data = json_decode(file_get_contents("php://input"), true);
+    $id = $data["id"];
+
+    // Obtener la imagen antes de eliminar
+    $sql = "SELECT imagen FROM categorias WHERE id=$id";
+    $result = $conexion->query($sql);
+    $fila = $result->fetch_assoc();
     
-    if (isset($data["nombre"], $data["descripcion"], $data["correo"], $data["tipo"])) {
-        $nombre = $conn->real_escape_string($data["nombre"]);
-        $descripcion = $conn->real_escape_string($data["descripcion"]);
-        $correo = $conn->real_escape_string($data["correo"]);
-        $tipo = $conn->real_escape_string($data["tipo"]);
-
-        $sql = "INSERT INTO categorias (nombre, descripcion, correo, tipo) VALUES ('$nombre', '$descripcion', '$correo', '$tipo')";
-        
-        if ($conn->query($sql) === TRUE) {
-            echo json_encode(["message" => "Categoría agregada"]);
-        } else {
-            echo json_encode(["error" => "Error al agregar: " . $conn->error]);
-        }
+    if (!empty($fila["imagen"]) && file_exists($fila["imagen"])) {
+        unlink($fila["imagen"]); // Eliminar la imagen del servidor
     }
-    exit();
+
+    $sql = "DELETE FROM categorias WHERE id=$id";
+    if ($conexion->query($sql) === TRUE) {
+        echo json_encode(["mensaje" => "Categoría eliminada"]);
+    } else {
+        echo json_encode(["error" => $conexion->error]);
+    }
 }
 
-// Actualizar una categoría
-if ($_SERVER["REQUEST_METHOD"] === "PUT") {
-    $data = json_decode(file_get_contents("php://input"), true);
-
-    if (isset($data["id"], $data["nombre"], $data["descripcion"], $data["correo"], $data["tipo"])) {
-        $id = (int)$data["id"];
-        $nombre = $conn->real_escape_string($data["nombre"]);
-        $descripcion = $conn->real_escape_string($data["descripcion"]);
-        $correo = $conn->real_escape_string($data["correo"]);
-        $tipo = $conn->real_escape_string($data["tipo"]);
-
-        $sql = "UPDATE categorias SET nombre='$nombre', descripcion='$descripcion', correo='$correo', tipo='$tipo' WHERE id=$id";
-        
-        if ($conn->query($sql) === TRUE) {
-            echo json_encode(["message" => "Categoría actualizada"]);
-        } else {
-            echo json_encode(["error" => "Error al actualizar: " . $conn->error]);
-        }
-    }
-    exit();
-}
-
-// Eliminar una categoría
-if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
-    $data = json_decode(file_get_contents("php://input"), true);
-    
-    if (isset($data["id"])) {
-        $id = (int)$data["id"];
-        $sql = "DELETE FROM categorias WHERE id = $id";
-        
-        if ($conn->query($sql) === TRUE) {
-            echo json_encode(["message" => "Categoría eliminada"]);
-        } else {
-            echo json_encode(["error" => "Error al eliminar: " . $conn->error]);
-        }
-    }
-    exit();
-}
-
-$conn->close();
+$conexion->close();
 ?>
+
