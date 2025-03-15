@@ -1,89 +1,162 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
+  background-color: #f5f5f5;
   text-align: center;
-}
-
-header {
-  background-color: #007bff;
-  color: white;
-  padding: 15px;
-  font-size: 24px;
-}
-
-.formulario {
-  background: white;
+  margin: 0;
   padding: 20px;
-  width: 50%;
-  margin: 20px auto;
-  box-shadow: 0px 0px 10px gray;
-  border-radius: 10px;
 }
 
-form input, form select, form button {
+nav {
+  background: linear-gradient(135deg, #1e3c72, #2a5298); /* Degradado moderno */
+  padding: 15px 0;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  position: fixed;
   width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-  font-size: 16px;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
-form button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-form button:hover {
-  background-color: #0056b3;
-}
-
-.contenedor-tarjetas {
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  margin: 20px;
+  gap: 25px;
 }
 
-.tarjeta {
-  background: white;
-  border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0px 0px 5px gray;
-  width: 250px;
-  margin: 10px;
-  text-align: left;
+nav ul li {
+  display: inline;
 }
 
-.tarjeta h3 {
-  color: #007bff;
+nav ul li a {
+  text-decoration: none;
+  color: #ecf0f1;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 15px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
 }
 
-.btn-editar, .btn-eliminar {
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 0;
+  height: 3px;
+  background: #f39c12;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-50%);
+}
+
+nav ul li a:hover::after {
   width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  cursor: pointer;
-  border: none;
+}
+
+nav ul li a:hover {
+  color: #f1c40f;
+  transform: scale(1.1);
+}
+
+nav ul li a.active {
+  background: #e74c3c;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px rgba(231, 76, 60, 0.7);
+}
+
+h1 {
+  font-size: 28px;
+  color: #333;
+  margin-top: 80px;
+}
+
+.contenedor {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+input, button {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
   font-size: 14px;
 }
 
-.btn-editar {
+button {
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.tarjeta {
+  width: 230px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  margin: 15px auto;
+  text-align: left;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.tarjeta img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.tarjeta h3 {
+  font-size: 16px;
+  color: #333;
+  margin: 10px 0 5px;
+}
+
+.tarjeta p {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0;
+}
+
+.tarjeta .botones {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.boton-editar {
   background-color: #ffc107;
   color: black;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
 }
 
-.btn-eliminar {
+.boton-eliminar {
   background-color: #dc3545;
   color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
 }
 
-.btn-editar:hover {
-  background-color: #e0a800;
-}
-
-.btn-eliminar:hover {
-  background-color: #c82333;
-}
