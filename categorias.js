@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Cargar categorías
 function cargarCategorias() {
-    fetch("categoriass.php")
+    fetch("obtener_categorias.php")
         .then(response => response.json())
         .then(data => {
             const contenedor = document.getElementById("contenedorCategorias");
@@ -28,46 +28,48 @@ function crearTarjeta(categoria) {
     const tarjeta = document.createElement("div");
     tarjeta.className = "tarjeta";
     tarjeta.innerHTML = `
+        ${categoria.imagen ? `<img src="${categoria.imagen}" class="categoria-img">` : ""}
         <h3>${categoria.nombre}</h3>
         <p>${categoria.descripcion}</p>
         <p><strong>Correo:</strong> ${categoria.correo}</p>
         <p><strong>Tipo:</strong> ${categoria.tipo}</p>
-        <button class="btn-editar" onclick="editarCategoria(${categoria.id}, '${categoria.nombre}', '${categoria.descripcion}', '${categoria.correo}', '${categoria.tipo}')">Editar</button>
-        <button class="btn-eliminar" onclick="eliminarCategoria(${categoria.id})">Eliminar</button>
+        <div class="botones">
+            <button class="boton-editar" onclick="editarCategoria(${categoria.id}, '${categoria.nombre}', '${categoria.descripcion}', '${categoria.correo}', '${categoria.tipo}')">Editar</button>
+            <button class="boton-eliminar" onclick="eliminarCategoria(${categoria.id})">Eliminar</button>
+        </div>
     `;
     document.getElementById("contenedorCategorias").appendChild(tarjeta);
-}
-
-// Guardar (insertar o actualizar) una categoría
-function guardarCategoria() {
-    const id = document.getElementById("categoriaId").value;
-    const nombre = document.getElementById("nombreCategoria").value;
-    const descripcion = document.getElementById("descripcionCategoria").value;
-    const correo = document.getElementById("correoCategoria").value;
-    const tipo = document.getElementById("tipoCategoria").value;
-
-    const metodo = id ? "PUT" : "POST";
-    const datos = { id, nombre, descripcion, correo, tipo };
-
-    fetch("categoriass.php", {
-        method: metodo,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(datos)
-    })
-    .then(response => response.json())
-    .then(() => {
-        resetFormulario();
-        cargarCategorias();
-    });
 }
 
 // Editar categoría
 function editarCategoria(id, nombre, descripcion, correo, tipo) {
     document.getElementById("categoriaId").value = id;
-    document.getElementById("nombreCategoria").value = nombre;
-    document.getElementById("descripcionCategoria").value = descripcion;
-    document.getElementById("correoCategoria").value = correo;
-    document.getElementById("tipoCategoria").value = tipo;
+    document.getElementById("nombre").value = nombre;
+    document.getElementById("descripcion").value = descripcion;
+    document.getElementById("correo").value = correo;
+    document.getElementById("tipo").value = tipo;
+}
+
+// Guardar categoría (Crear o Editar)
+function guardarCategoria() {
+    let id = document.getElementById("categoriaId").value;
+    let formData = new FormData(document.getElementById("formCategoria"));
+    
+    if (id) {
+        formData.append("id", id); // Asegurar que el ID se envía correctamente
+    }
+
+    fetch("categoriass.php", {
+        method: "POST", // Siempre usar POST para que PHP lo reciba bien
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Respuesta del servidor:", data);
+        resetFormulario();
+        cargarCategorias();
+    })
+    .catch(error => console.error("Error al guardar categoría:", error));
 }
 
 // Eliminar categoría
