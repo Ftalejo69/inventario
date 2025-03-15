@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Productos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="productos.html" class="active">Productos</a></li>
+            <li><a href="proveedores.html">Proveedores</a></li>
+            <li><a href="categorias.html">Categorías</a></li>
+        </ul>
+    </nav>
+    
+    <h1>Gestión de Productos</h1>
+    <div class="contenedor">
+        <div class="formulario">
+            <h2>Agregar Producto</h2>
+            <form id="formProducto" enctype="multipart/form-data">
+                <input type="text" id="nombre" placeholder="Nombre del producto" required>
+                <textarea id="descripcion" placeholder="Descripción"></textarea>
+                <input type="number" id="precio" placeholder="Precio" required>
+                <input type="number" id="stock" placeholder="Stock" required>
+                <select id="categoria" required>
+                    <option value="">Seleccionar Categoría</option>
+                </select>
+                <select id="proveedor" required>
+                    <option value="">Seleccionar Proveedor</option>
+                </select>
+                <input type="file" id="imagen" accept="image/*">
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+        <div id="lista-productos" class="tarjetas"></div>
+    </div>
+    
+    <script src="productos.js" defer></script>
+</body>
+</html>
