@@ -17,24 +17,24 @@
   <nav>
       <ul>
           <li class="submenu">
-              <a href="#">Productos</a>
+              <a href="productos.html">Productos</a>
               <ul class="submenu-items">
-                  <li><a href="#" onclick="abrirModal('modal-crear-producto')">Crear Producto</a></li>
-                  <li><a href="#" onclick="abrirModal('modal-editar-producto')">Editar/Eliminar Producto</a></li>
+                  <li><a href="productos.html">Crear Producto</a></li>
+                  <li><a href="productos.html" >Editar/Eliminar Producto</a></li>
               </ul>
           </li>
           <li class="submenu">
               <a href="proveedores.html">Proveedor</a>
               <ul class="submenu-items">
-                  <li><a href="#" onclick="abrirModal('modal-crear-proveedor')">Crear Proveedor</a></li>
-                  <li><a href="#" onclick="abrirModal('modal-editar-proveedor')">Editar/Eliminar Proveedor</a></li>
+                  <li><a href="proveedores.html">Crear Proveedor</a></li>
+                  <li><a href="proveedores.html">Editar/Eliminar Proveedor</a></li>
               </ul>
           </li>
           <li class="submenu">
               <a href="categorias.php">Categoría</a>
               <ul class="submenu-items">
-                  <li><a href="#" onclick="abrirModal('modal-crear-categoria')">Crear Categoría</a></li>
-                  <li><a href="#" onclick="abrirModal('modal-editar-categoria')">Editar/Eliminar Categoría</a></li>
+                  <li><a href="categorias.php" >Crear Categoría</a></li>
+                  <li><a href="categorias.php" >Editar/Eliminar Categoría</a></li>
               </ul>
           </li>
           <li><a href="#" id="ver-perfil">Ver Perfil</a></li>
@@ -112,47 +112,6 @@
         </div>
     </div>
 
-<div id="modal-crear-producto" class="modal">
-  <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Crear Producto</h2>
-      <form id="form-crear-producto">
-          <input type="hidden" name="tipo" value="producto">
-          <label>Nombre: <input type="text" name="nombre" required></label>
-          <label>Precio: <input type="number" name="precio" required></label>
-          <label>Descripción: <textarea name="descripcion" required></textarea></label>
-          <button type="submit">Guardar</button>
-      </form>
-  </div>
-</div>
-
-
-<div id="modal-crear-proveedor" class="modal">
-  <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Crear Proveedor</h2>
-      <form id="form-crear-proveedor">
-          <input type="hidden" name="tipo" value="proveedor">
-          <label>Nombre: <input type="text" name="nombre" required></label>
-          <label>Contacto: <input type="text" name="contacto" required></label>
-          <label>Teléfono: <input type="text" name="telefono" required></label>
-          <button type="submit">Guardar</button>
-      </form>
-  </div>
-</div>
-
-
-<div id="modal-crear-categoria" class="modal">
-  <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Crear Categoría</h2>
-      <form id="form-crear-categoria">
-          <input type="hidden" name="tipo" value="categoria">
-          <label>Nombre: <input type="text" name="nombre" required></label>
-          <button type="submit">Guardar</button>
-      </form>
-  </div>
-</div>
     <footer>
         <p>&copy; 2025 Supermercado Online. Todos los derechos reservados.</p>
     </footer>
