@@ -120,7 +120,7 @@ CREATE TABLE `usuarios` (
   `nombre` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `contrasena` varchar(255) NOT NULL,
-  `rol` enum('Administrador','Vendedor','Bodeguero') NOT NULL,
+  `rol` enum('Administrador','Vendedor','Comprador') NOT NULL,
   `direccion` varchar(255) NOT NULL,
   `telefono` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
