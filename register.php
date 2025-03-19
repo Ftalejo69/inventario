@@ -15,10 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
     $direccion = $_POST["direccion"];
     $telefono = $_POST["telefono"];
+    $rol = $_POST["rol"];
 
-    $sql = "INSERT INTO usuarios (nombre, email, password, direccion, telefono) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO usuarios (nombre, email, password, direccion, telefono, rol) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("sssss", $nombre, $email, $password, $direccion, $telefono);
+    $stmt->bind_param("ssssss", $nombre, $email, $password, $direccion, $telefono, $rol);
 
     if ($stmt->execute()) {
         echo "Registro exitoso. <a href='index.html'>Iniciar sesión</a>";

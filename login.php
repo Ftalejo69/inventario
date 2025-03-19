@@ -17,20 +17,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
 
     // Buscar usuario en la base de datos
-    $sql = "SELECT id, password FROM usuarios WHERE email = ?";
+    $sql = "SELECT id, contrasena, rol FROM usuarios WHERE email = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
     
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $hashed_password);
+        $stmt->bind_result($id, $hashed_password, $rol);
         $stmt->fetch();
 
         // Verificar contraseña
         if (password_verify($password, $hashed_password)) {
             $_SESSION["user_id"] = $id;
-            header("Location: main.html");
+            $_SESSION["rol"] = $rol;
+            if ($rol == 'Administrador') {
+                header("Location: admin_dashboard.php");
+            } elseif ($rol == 'Vendedor') {
+                header("Location: vendedor_dashboard.php");
+            } else {
+                header("Location: comprador_dashboard.php");
+            }
             exit();
         } else {
             echo "Contraseña incorrecta.";

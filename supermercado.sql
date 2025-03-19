@@ -131,8 +131,8 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `contrasena`, `rol`, `direccion`, `telefono`) VALUES
 (1, 'UsuarioPrueba', 'prueba@supermercado.com', '$2y$10$dTO8o1bRRPqCHFhNcs6hoe45GdI9hRTqKrIobMuqC0efQBYo7.N8u', 'Administrador', 'Carr11', '89834953'),
-(2, 'samuel', 'samuel@gmail.com', '$2y$10$8B0xqwtkpjn2eQueuXbqLucAxa.tDhqzYgjAY5jF3uzEEYMwfIxNC', '', '', ''),
-(3, 'yolanda', 'yolanda@gmail.com', '$2y$10$jDdstig.Y8gpE6LheS.0eOzhs2xEjPAQi0z1ZSL2r3rOvA/7NDbiW', '', 'calle16', '32146677686');
+(2, 'samuel', 'samuel@gmail.com', '$2y$10$8B0xqwtkpjn2eQueuXbqLucAxa.tDhqzYgjAY5jF3uzEEYMwfIxNC', 'Comprador', '', ''),
+(3, 'yolanda', 'yolanda@gmail.com', '$2y$10$jDdstig.Y8gpE6LheS.0eOzhs2xEjPAQi0z1ZSL2r3rOvA/7NDbiW', 'Vendedor', 'calle16', '32146677686');
 
 -- --------------------------------------------------------
 
