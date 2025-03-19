@@ -15,11 +15,12 @@ if ($conexion->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
+    $rol = $_POST["rol"];
 
     // Buscar usuario en la base de datos
-    $sql = "SELECT id, contrasena, rol FROM usuarios WHERE email = ?";
+    $sql = "SELECT id, password, rol FROM usuarios WHERE email = ? AND rol = ?";
     $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("s", $email);
+    $stmt->bind_param("ss", $email, $rol);
     $stmt->execute();
     $stmt->store_result();
     
