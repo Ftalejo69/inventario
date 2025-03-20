@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Tareas con LocalStorage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #f2f2f2;
+      margin: 5px 0;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Mi Lista de Tareas</h1>
+  <input type="text" id="nuevaTarea" placeholder="Agregar nueva tarea">
+  <button onclick="agregarTarea()">Agregar</button>
+
+  <ul id="listaTareas"></ul>
+
+  <script>
+    // Recuperar las tareas guardadas al cargar la página
+    let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
+
+    // Función para renderizar la lista de tareas
+    function renderTareas() {
+      const lista = document.getElementById("listaTareas");
+      lista.innerHTML = "";
+      tareas.forEach((tarea, indice) => {
+        const li = document.createElement("li");
+        li.textContent = tarea;
+
+        // Botón para eliminar la tarea
+        const btnEliminar = document.createElement("button");
+        btnEliminar.textContent = "Eliminar";
+        btnEliminar.onclick = () => {
+          eliminarTarea(indice);
+        };
+
+        li.appendChild(btnEliminar);
+        lista.appendChild(li);
+      });
+    }
+
+    // Función para agregar una nueva tarea
+    function agregarTarea() {
+      const input = document.getElementById("nuevaTarea");
+      const nueva = input.value.trim();
+      if (nueva !== "") {
+        tareas.push(nueva);
+        localStorage.setItem("tareas", JSON.stringify(tareas)); // Guardar en LocalStorage
+        input.value = "";
+        renderTareas();
+      }
+    }
+
+    // Función para eliminar una tarea
+    function eliminarTarea(indice) {
+      tareas.splice(indice, 1);
+      localStorage.setItem("tareas", JSON.stringify(tareas));
+      renderTareas();
+    }
+
+    // Inicializar renderizado al cargar la página
+    renderTareas();
+  </script>
+
+</body>
+</html>

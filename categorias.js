@@ -74,8 +74,20 @@ function guardarCategoria() {
 
 // Eliminar categoría
 function eliminarCategoria(id) {
-    fetch("categoriass.php", { method: "DELETE", body: JSON.stringify({ id }) })
-        .then(() => cargarCategorias());
+    console.log("Eliminando categoría con ID:", id);
+    fetch("categoriass.php", { 
+        method: "DELETE", 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id }) 
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Respuesta del servidor:", data);
+        cargarCategorias();
+    })
+    .catch(error => console.error("Error al eliminar categoría:", error));
 }
 
 // Resetear formulario

@@ -1,37 +1,97 @@
-function cargarProductos() {
-    const action = "cargarProductos";
-    fetch('/Boostrap/php/productos', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ action }) 
-    })
-    .then(response => response.json()) 
+document.addEventListener("DOMContentLoaded", function() {
+    cargarCategoriasYProveedores();
+    cargarProductos();
+
+    document.getElementById("productoForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        let formData = new FormData(this);
+
+        fetch("producto.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                alert(result.success);
+                this.reset();
+                cargarProductos(); // Refrescar la tabla
+            } else {
+                alert("Error: " + result.error);
+            }
+        })
+        .catch(error => console.error("Error al guardar producto: ", error));
+    });
+});
+
+function cargarCategoriasYProveedores() {
+    fetch("producto.php")
+    .then(response => response.json())
     .then(data => {
-        let tbody = document.getElementById('ListaProductos'); 
-        tbody.innerHTML = ''; 
-        data.forEach(producto => {
-            let tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${producto.ID_Producto}</td>
-                <td><img src="${producto.imagen}" width="50" height="50"></td>
-                <td>${producto.Nombre}</td>
-                <td>${producto.Descripcion}</td>
-                <td>${producto.Precio}</td>
-                <td>${producto.Stock}</td>
-                <td>${producto.Categoria}</td>
-                <td>${producto.Proveededor}</td>
-                <td>
-                    <button class="btn btn-warning" onclick="abrirModalEditar(${producto.ID_Producto})">Editar</button>
-                    <button class="btn btn-danger" onclick="eliminarProducto(${producto.ID_Producto})">Eliminar</button>
-                </td>
-            `;
-            tbody.appendChild(tr); 
+        let categoriaSelect = document.getElementById("categoria");
+        let proveedorSelect = document.getElementById("proveedor");
+
+        categoriaSelect.innerHTML = '<option value="">Seleccionar Categoría</option>';
+        proveedorSelect.innerHTML = '<option value="">Seleccionar Proveedor</option>';
+
+        data.categorias.forEach(categoria => {
+            let option = document.createElement("option");
+            option.value = categoria.id;
+            option.textContent = categoria.nombre;
+            categoriaSelect.appendChild(option);
+        });
+
+        data.proveedores.forEach(proveedor => {
+            let option = document.createElement("option");
+            option.value = proveedor.id;
+            option.textContent = proveedor.nombre;
+            proveedorSelect.appendChild(option);
         });
     })
-    .catch(error => {
-        console.error('Error al cargar los productos:', error);
+    .catch(error => console.error("Error al cargar datos: ", error));
+}
+
+function cargarProductos() {
+    fetch("obtener_productos.php")
+    .then(response => response.json())
+    .then(productos => {
+        let tabla = document.getElementById("productosTabla");
+        tabla.innerHTML = ""; // Limpiar la tabla
+
+        productos.forEach(producto => {
+            let fila = document.createElement("tr");
+
+            fila.innerHTML = `
+                <td><img src="${producto.imagen}" class="img-preview"></td>
+                <td>${producto.nombre}</td>
+                <td>${producto.descripcion}</td>
+                <td>$${producto.precio}</td>
+                <td>${producto.stock}</td>
+                <td>${producto.categoria}</td>
+                <td>${producto.proveedor}</td>
+                <td>
+                    <button class="btn-edit" onclick="editarProducto(${producto.id})">Editar</button>
+                    <button class="btn-delete" onclick="eliminarProducto(${producto.id})">Eliminar</button>
+                </td>
+            `;
+
+            tabla.appendChild(fila);
+        });
     });
 }
 
+function eliminarProducto(id) {
+    if (confirm("¿Seguro que quieres eliminar este producto?")) {
+        fetch(`eliminar_producto.php?id=${id}`, { method: "GET" })
+        .then(response => response.json())
+        .then(result => {
+            alert(result.message);
+            cargarProductos();
+        });
+    }
+}
+
+function editarProducto(id) {
+    alert("Función de editar en desarrollo...");
+}

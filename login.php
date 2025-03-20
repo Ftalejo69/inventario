@@ -4,8 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Conectar a la base de datos
-$conexion = new mysqli("localhost", "root", "", "chimbadesupermercado");
-
+$conexion = new mysqli("localhost", "root", "", "supermercado"); // Cambiar el nombre de la base de datos si es necesario
 
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
@@ -18,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rol = $_POST["rol"];
 
     // Buscar usuario en la base de datos
-    $sql = "SELECT id, password, rol FROM usuarios WHERE email = ? AND rol = ?";
+    $sql = "SELECT id, contrasena, rol FROM usuarios WHERE email = ? AND rol = ?"; // Asegúrate de que el nombre de la columna de la contraseña sea correcto
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("ss", $email, $rol);
     $stmt->execute();
@@ -33,11 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["user_id"] = $id;
             $_SESSION["rol"] = $rol;
             if ($rol == 'Administrador') {
-                header("Location: admin_dashboard.php");
+                header("Location: main.html");
             } elseif ($rol == 'Vendedor') {
-                header("Location: vendedor_dashboard.php");
+                header("Location: main_vendedor.html");
             } else {
-                header("Location: comprador_dashboard.php");
+                header("Location: main_comprador.html");
             }
             exit();
         } else {

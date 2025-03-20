@@ -4,7 +4,6 @@ include "conexion.php";
 $metodo = $_SERVER["REQUEST_METHOD"];
 file_put_contents("debug.txt", print_r($_POST, true));
 
-
 if ($metodo == "POST") { // Crear nueva categoría o Editar
     $id = isset($_POST["id"]) ? $_POST["id"] : null;
     $nombre = $_POST["nombre"];
@@ -65,6 +64,7 @@ if ($metodo == "GET") {
 if ($metodo == "DELETE") {
     $data = json_decode(file_get_contents("php://input"), true);
     $id = $data["id"];
+    file_put_contents("debug.txt", "ID a eliminar: " . $id . "\n", FILE_APPEND);
 
     // Obtener la imagen antes de eliminar
     $sql = "SELECT imagen FROM categorias WHERE id=$id";
