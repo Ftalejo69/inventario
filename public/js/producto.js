@@ -4,6 +4,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("productoForm").addEventListener("submit", function(event) {
         event.preventDefault();
+        const nombre = this.nombre.value.trim();
+        const descripcion = this.descripcion.value.trim();
+        const precio = parseFloat(this.precio.value);
+        const stock = parseInt(this.stock.value);
+
+        if (!nombre || !descripcion || isNaN(precio) || isNaN(stock) || precio <= 0 || stock < 0) {
+            alert("Por favor, completa todos los campos correctamente.");
+            return;
+        }
         
         let formData = new FormData(this);
 

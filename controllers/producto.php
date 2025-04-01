@@ -19,12 +19,12 @@ if (!is_dir($upload_dir)) {
 
 // Si se reciben datos por POST, intentar guardarlos en la BD
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = $_POST["nombre"] ?? "";
-    $descripcion = $_POST["descripcion"] ?? "";
-    $precio = $_POST["precio"] ?? 0;
-    $stock = $_POST["stock"] ?? 0;
-    $categoria_id = $_POST["categoria_id"] ?? 0;
-    $proveedor_id = $_POST["proveedor_id"] ?? 0;
+    $nombre = htmlspecialchars($_POST["nombre"], ENT_QUOTES, 'UTF-8');
+    $descripcion = htmlspecialchars($_POST["descripcion"], ENT_QUOTES, 'UTF-8');
+    $precio = filter_var($_POST["precio"], FILTER_VALIDATE_FLOAT);
+    $stock = filter_var($_POST["stock"], FILTER_VALIDATE_INT);
+    $categoria_id = filter_var($_POST["categoria_id"], FILTER_VALIDATE_INT);
+    $proveedor_id = filter_var($_POST["proveedor_id"], FILTER_VALIDATE_INT);
     $imagen_path = "";
 
     // Manejar la subida de imagen

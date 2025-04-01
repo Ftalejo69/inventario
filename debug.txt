@@ -1,7 +1,0 @@
-Array
-(
-    [nombre] => w
-    [descripcion] => dqwdqw
-    [correo] => dqwdqwdq@gmail.com
-    [tipo] => dqwd
-)

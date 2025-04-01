@@ -1,12 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("Archivo JS cargado correctamente.");
     cargarProveedores();
 });
 
 // Función para cargar proveedores desde la base de datos
 async function cargarProveedores() {
     try {
-        const respuesta = await fetch("proveedores.php");
+        console.log("Intentando cargar proveedores...");
+        const respuesta = await fetch("../controllers/proveedores.php"); // Ruta ajustada
+        if (!respuesta.ok) {
+            throw new Error(`Error en la respuesta: ${respuesta.status}`);
+        }
         const proveedores = await respuesta.json();
+        console.log("Proveedores cargados:", proveedores);
         renderizarProveedores(proveedores);
     } catch (error) {
         console.error("Error cargando proveedores:", error);
@@ -46,11 +52,16 @@ async function agregarProveedor() {
     }
 
     try {
-        await fetch("proveedores.php", {
+        console.log("Intentando agregar proveedor...");
+        const respuesta = await fetch("../controllers/proveedores.php", { // Ruta ajustada
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ nombre, contacto, telefono })
         });
+        if (!respuesta.ok) {
+            throw new Error(`Error en la respuesta: ${respuesta.status}`);
+        }
+        console.log("Proveedor agregado correctamente.");
         document.getElementById("nombre").value = "";
         document.getElementById("contacto").value = "";
         document.getElementById("telefono").value = "";
@@ -65,7 +76,7 @@ async function editarProveedor(id) {
     const nuevoNombre = prompt("Editar nombre del proveedor:");
     if (nuevoNombre) {
         try {
-            await fetch("proveedores.php", {
+            await fetch("../controllers/proveedores.php", { // Ruta ajustada
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id, nombre: nuevoNombre })
@@ -81,14 +92,25 @@ async function editarProveedor(id) {
 async function eliminarProveedor(id) {
     if (confirm("¿Seguro que quieres eliminar este proveedor?")) {
         try {
-            await fetch("proveedores.php", {
+            console.log("Intentando eliminar proveedor con ID:", id);
+            const respuesta = await fetch("../controllers/proveedores.php", { // Ruta ajustada
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id })
+                body: JSON.stringify({ id }) // Asegúrate de enviar el ID correctamente
             });
-            cargarProveedores();
+            if (!respuesta.ok) {
+                const errorData = await respuesta.json();
+                console.error("Error del servidor:", errorData);
+                alert(errorData.error || "No se pudo eliminar el proveedor.");
+                return;
+            }
+            const resultado = await respuesta.json();
+            console.log("Respuesta del servidor:", resultado);
+            alert(resultado.mensaje || "Proveedor eliminado correctamente.");
+            cargarProveedores(); // Recarga las tarjetas después de eliminar
         } catch (error) {
             console.error("Error eliminando proveedor:", error);
+            alert("Ocurrió un error al intentar eliminar el proveedor.");
         }
     }
 }

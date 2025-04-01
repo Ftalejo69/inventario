@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ssssss", $nombre, $email, $password, $direccion, $telefono, $rol);
 
         if ($stmt->execute()) {
-            echo "Registro exitoso. <a href='index.html'>Iniciar sesión</a>";
+            echo "Registro exitoso. <a href='../views/index.html'>Iniciar sesión</a>";
         } else {
             echo "Error en el registro: " . $stmt->error;
         }

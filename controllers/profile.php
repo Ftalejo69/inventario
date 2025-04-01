@@ -19,9 +19,9 @@ $user_id = $_SESSION["user_id"];
 
 // Si la solicitud es POST, actualiza los datos
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST["email"];
-    $direccion = $_POST["direccion"];
-    $telefono = $_POST["telefono"];
+    $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
+    $direccion = htmlspecialchars($_POST["direccion"], ENT_QUOTES, 'UTF-8');
+    $telefono = htmlspecialchars($_POST["telefono"], ENT_QUOTES, 'UTF-8');
 
     $sql = "UPDATE usuarios SET email = ?, direccion = ?, telefono = ? WHERE id = ?";
     $stmt = $conexion->prepare($sql);
