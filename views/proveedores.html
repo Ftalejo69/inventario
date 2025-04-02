@@ -2,28 +2,40 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Proveedores</title>
-  <link rel="stylesheet" href="../public/css/proveedores.css"> <!-- Ruta ajustada -->
+  <link rel="stylesheet" href="../public/css/proveedores.css">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <div class="menu"> <!-- Cambiado de <nav> a <div class="menu"> -->
+    <ul>
+      <li><a href="../views/categorias.php">Categorías</a></li>
+      <li><a href="../views/proveedores.html" class="active">Proveedores</a></li>
+      <li><a href="../views/productos.html">Productos</a></li>
+      <li><a href="../views/main.html">Inicio</a></li>
+    </ul>
+  </div>
+
   <header>
     <h1><i class="fas fa-truck"></i> Nuestros Proveedores</h1>
   </header>
 
-  <div class="formulario">
-    <h2>Agregar Nuevo Proveedor</h2>
-    <input type="text" id="nombre" placeholder="Nombre del proveedor">
-    <input type="email" id="contacto" placeholder="Correo de contacto">
-    <input type="tel" id="telefono" placeholder="Teléfono">
-    <button onclick="agregarProveedor()">Agregar</button>
-  </div>
+  <main>
+    <div class="formulario">
+      <h2>Agregar Nuevo Proveedor</h2>
+      <input type="text" id="nombre" placeholder="Nombre del proveedor">
+      <input type="email" id="contacto" placeholder="Correo de contacto">
+      <input type="tel" id="telefono" placeholder="Teléfono">
+      <button onclick="agregarProveedor()">Agregar</button>
+    </div>
 
-  <div class="contenedor-tarjetas" id="contenedorProveedores"></div>
+    <div class="contenedor-tarjetas" id="contenedorProveedores"></div>
+  </main>
 
   <script>
     console.log("Archivo HTML cargado correctamente.");
   </script>
-  <script src="../public/js/provedor.js"></script> <!-- Ruta ajustada -->
+  <script src="../public/js/provedor.js"></script>
 </body>
 </html>

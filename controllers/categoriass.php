@@ -1,15 +1,15 @@
 <?php
-include "conexion.php"; 
+include __DIR__ . "/../conexion.php"; // Cambiado para usar una ruta relativa más robusta
 
 $metodo = $_SERVER["REQUEST_METHOD"];
 file_put_contents("debug.txt", print_r($_POST, true));
 
 if ($metodo == "POST") { // Crear nueva categoría o Editar
-    $id = isset($_POST["id"]) ? $_POST["id"] : null;
-    $nombre = $_POST["nombre"];
-    $descripcion = $_POST["descripcion"];
-    $correo = $_POST["correo"];
-    $tipo = $_POST["tipo"];
+    $id = isset($_POST["id"]) ? intval($_POST["id"]) : null;
+    $nombre = $conexion->real_escape_string(trim($_POST["nombre"]));
+    $descripcion = $conexion->real_escape_string(trim($_POST["descripcion"]));
+    $correo = filter_var($_POST["correo"], FILTER_VALIDATE_EMAIL) ? $_POST["correo"] : "";
+    $tipo = $conexion->real_escape_string(trim($_POST["tipo"]));
 
     // Procesar imagen si se subió
     $imagenRuta = "";

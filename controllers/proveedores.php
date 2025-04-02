@@ -38,6 +38,20 @@ if ($metodo == "DELETE") {
 
     if (isset($data["id"]) && is_numeric($data["id"])) { // Verifica que el ID sea numérico
         $id = intval($data["id"]);
+
+        // Verificar si el proveedor tiene productos asociados
+        $query = "SELECT COUNT(*) AS total FROM productos WHERE proveedor_id = ?";
+        $stmt = $conexion->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+
+        if ($result['total'] > 0) {
+            http_response_code(400);
+            echo json_encode(["error" => "No se puede eliminar este proveedor porque tiene productos asociados."]);
+            exit;
+        }
+
         $resultado = $conexion->query("DELETE FROM proveedores WHERE id=$id");
 
         if ($resultado && $conexion->affected_rows > 0) { // Verifica si se eliminó alguna fila

@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Categorías</title>
-    <link rel="stylesheet" href="estloszz.css">
-  
+    <link rel="stylesheet" href="../public/css/estloszz.css"> <!-- Ruta correcta -->
 </head>
 <body>
 <nav>
@@ -34,7 +33,7 @@
     </div>
 
     <div class="contenedor-tarjetas" id="contenedorCategorias"></div>
-    <script src="categorias.js" defer></script>
+    <script src="../public/js/categorias.js" defer></script> <!-- Ruta correcta -->
 </body>
 </html>
 

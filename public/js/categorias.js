@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Cargar categorías
 function cargarCategorias() {
-    fetch("obtener_categorias.php")
+    fetch("../controllers/obtener_categorias.php") // Cambiado de "../api/obtener_categorias.php" a "../controllers/obtener_categorias.php"
         .then(response => response.json())
         .then(data => {
             const contenedor = document.getElementById("contenedorCategorias");
@@ -59,7 +59,7 @@ function guardarCategoria() {
         formData.append("id", id); // Asegurar que el ID se envía correctamente
     }
 
-    fetch("categoriass.php", {
+    fetch("../controllers/categoriass.php", { // Cambiado de "../api/categoriass.php" a "../controllers/categoriass.php"
         method: "POST", // Siempre usar POST para que PHP lo reciba bien
         body: formData
     })
@@ -75,7 +75,7 @@ function guardarCategoria() {
 // Eliminar categoría
 function eliminarCategoria(id) {
     console.log("Eliminando categoría con ID:", id);
-    fetch("categoriass.php", { 
+    fetch("../controllers/categoriass.php", { // Cambiado de "../api/categoriass.php" a "../controllers/categoriass.php"
         method: "DELETE", 
         headers: {
             'Content-Type': 'application/json'
